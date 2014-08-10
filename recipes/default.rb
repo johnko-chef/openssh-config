@@ -19,3 +19,10 @@
 #
 
 include_recipe "openssh"
+
+include_recipe "sysrc"
+
+sysrc 'sshd_enabled' do
+  value 'YES'
+  file '/etc/rc.conf'
+end

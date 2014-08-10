@@ -8,6 +8,7 @@ version          '0.1.0'
 
 recipe           'sshd-config', 'Creates a sshd_config'
 depends          'openssh'
+depends          'sysrc'
 
 %w(freebsd).each do |os|
   supports os
