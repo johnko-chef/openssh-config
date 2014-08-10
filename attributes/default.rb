@@ -20,7 +20,7 @@
 
 case node['platform_family']
 when 'freebsd'
-  #defaults
+  #defaults server
   set['openssh']['server']['address_family'] = 'any'
   set['openssh']['server']['allow_agent_forwarding'] = 'yes'
   set['openssh']['server']['allow_tcp_forwarding'] = 'yes'
@@ -44,17 +44,17 @@ when 'freebsd'
   set['openssh']['server']['ignore_rhosts'] = 'yes'
   set['openssh']['server']['ignore_user_known_hosts'] = 'no'
   set['openssh']['server']['kerberos_authentication'] = 'no'
-  #set['openssh']['server']['kerberos_get_a_f_s_token'] = 'no' #apparently not supported in freebsd 10.0
+ #set['openssh']['server']['kerberos_get_a_f_s_token'] = 'no' #apparently not supported in freebsd 10.0
   set['openssh']['server']['kerberos_or_local_passwd'] = 'yes'
   set['openssh']['server']['kerberos_ticket_cleanup'] = 'yes'
-  #set['openssh']['server']['key_regeneration_interval'] = '1h' #protocol 1, ignore
+ #set['openssh']['server']['key_regeneration_interval'] = '1h' #protocol 1, ignore
   set['openssh']['server']['listen_address'] = [ '0.0.0.0', '::' ]
   set['openssh']['server']['log_level'] = 'INFO'
   set['openssh']['server']['login_grace_time'] = '2m'
   set['openssh']['server']['max_auth_tries'] = '6'
   set['openssh']['server']['max_sessions'] = '10'
   set['openssh']['server']['max_startups'] = '10:30:100'
-  #set['openssh']['server']['none_enabled'] = 'no' #apparently not supported in freebsd 10.0
+ #set['openssh']['server']['none_enabled'] = 'no' #apparently not supported in freebsd 10.0
   set['openssh']['server']['password_authentication'] = 'no'
   set['openssh']['server']['permit_empty_passwords'] = 'no'
   set['openssh']['server']['permit_root_login'] = 'no'
@@ -66,10 +66,10 @@ when 'freebsd'
   set['openssh']['server']['print_motd'] = 'yes'
   set['openssh']['server']['protocol'] = '2'
   set['openssh']['server']['pubkey_authentication'] = 'yes'
-  #set['openssh']['server']['r_s_a_authentication'] = 'yes' #protocol 1, ignore
+ #set['openssh']['server']['r_s_a_authentication'] = 'yes' #protocol 1, ignore
   set['openssh']['server']['rekey_limit'] = 'default none'
   set['openssh']['server']['rhosts_r_s_a_authentication'] = 'no'
-  #set['openssh']['server']['server_key_bits'] = '1024' #protocol 1, ignore
+ #set['openssh']['server']['server_key_bits'] = '1024' #protocol 1, ignore
   set['openssh']['server']['strict_modes'] = 'yes'
   set['openssh']['server']['subsystem'] = 'sftp /usr/libexec/sftp-server'
   set['openssh']['server']['syslog_facility'] = 'AUTH'
@@ -84,7 +84,7 @@ when 'freebsd'
   set['openssh']['server']['x11_forwarding'] = 'yes'
   set['openssh']['server']['x11_use_Localhost'] = 'yes'
 
-  #override
+  #override server
   override['openssh']['server']['allow_users'] = 'root littlechef'
   override['openssh']['server']['authorized_keys_file'] = '.ssh/authorized_keys'
   override['openssh']['server']['ciphers'] = 'aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,aes128-cbc,aes192-cbc,aes256-cbc'
@@ -102,4 +102,15 @@ when 'freebsd'
   override['openssh']['server']['use_d_n_s'] = 'no'
   override['openssh']['server']['use_p_a_m'] = 'no' #yes if using OPIE
   override['openssh']['server']['version_addendum'] = 'secret'
+
+  #override client
+  override['openssh']['client']['ciphers'] = 'aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,aes128-cbc,aes192-cbc,aes256-cbc'
+  override['openssh']['client']['compression'] = 'no'
+  #TODO remove sha1 when fabric supports sha2
+  override['openssh']['client']['kex_algorithms'] = 'ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1'
+  override['openssh']['client']['m_a_cs'] = 'umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512'
+  override['openssh']['client']['protocol'] = '2'
+  override['openssh']['client']['version_addendum'] = 'secret'
+  override['openssh']['client']['server_alive_count_max'] = '3'
+  override['openssh']['client']['server_alive_interval'] = '60'
 end
