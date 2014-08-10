@@ -92,7 +92,7 @@ when 'freebsd'
   override['openssh']['server']['compression'] = 'no'
   override['openssh']['server']['hostKey'] = [ '/etc/ssh/ssh_host_ecdsa_key', '/etc/ssh/ssh_host_rsa_key' ]
   override['openssh']['server']['kex_algorithms'] = 'ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256'
-  override['openssh']['server']['listen_address'] = node.ip
+  override['openssh']['server']['listen_address'] = node['ipaddress']
   override['openssh']['server']['login_grace_time'] = '30s'
   override['openssh']['server']['m_a_cs'] = 'umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1'
   override['openssh']['server']['max_auth_tries'] = '3'
