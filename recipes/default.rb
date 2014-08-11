@@ -19,10 +19,44 @@
 #
 
 include_recipe "openssh"
-
 include_recipe "sysrc"
+include_recipe "svc"
 
-sysrc 'sshd_enabled' do
-  value 'YES'
-  file '/etc/rc.conf'
+if platform?("freebsd")
+
+  # Prevent service ssh from running from openssh recipe
+
+  begin
+    r1 = resources(:service => "ssh")
+    r1.action :nothing
+  rescue Chef::Exceptions::ResourceNotFound
+    Chef::Log.warn "could not find template to override!"
+  end
+
+  # Disable use of old rsav1 and dsa
+
+  %w(sshd_rsa1_enable sshd_dsa_enable).each do |k|
+    sysrc k do
+      value 'NO'
+      file '/etc/rc.conf'
+    end
+  end
+
+  # Enable and start service with svc library
+
+  svc 'sshd' do
+    service_name node['openssh']['service_name']
+    supports value_for_platform(
+      'freebsd' => { 'default' => [:restart, :reload, :status] }
+    )
+    action [ :enable, :start ]
+  end
+
+  # Try to run test-sshd-config, and restart with svc library
+
+  execute "sshd-configtest" do
+    command "service sshd oneconfigtest"
+    notifies :reload, 'svc[sshd]'
+  end
+
 end
