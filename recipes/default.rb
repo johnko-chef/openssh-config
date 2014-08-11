@@ -19,8 +19,6 @@
 #
 
 include_recipe "openssh"
-include_recipe "sysrc"
-include_recipe "svc"
 
 if platform?("freebsd")
 
