@@ -50,7 +50,7 @@ if platform?("freebsd")
     action [ :enable, :start ]
   end
 
-  # Try to run test-sshd-config, and restart with svc library
+  # Try to run service sshd oneconfigtest, and restart with svc library
 
   execute "sshd-configtest" do
     command "service sshd oneconfigtest"
