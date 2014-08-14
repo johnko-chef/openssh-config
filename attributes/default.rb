@@ -102,7 +102,7 @@ when 'freebsd'
   override['openssh']['server']['permit_root_login'] = 'yes'
   override['openssh']['server']['use_d_n_s'] = 'no'
   override['openssh']['server']['use_p_a_m'] = 'no' #yes if using OPIE
-  override['openssh']['server']['version_addendum'] = ''
+  override['openssh']['server']['version_addendum'] = 'no'
 
   # override client
   override['openssh']['client']['ciphers'] = 'aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com,aes128-cbc,aes192-cbc,aes256-cbc'
@@ -111,7 +111,7 @@ when 'freebsd'
   override['openssh']['client']['kex_algorithms'] = 'ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256,diffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1'
   override['openssh']['client']['m_a_cs'] = 'umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512'
   override['openssh']['client']['protocol'] = '2'
-  override['openssh']['client']['version_addendum'] = ''
+  override['openssh']['client']['version_addendum'] = 'no'
   override['openssh']['client']['server_alive_count_max'] = '3'
   override['openssh']['client']['server_alive_interval'] = '60'
 end
