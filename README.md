@@ -1,7 +1,7 @@
 Description
 ===========
 
-Creates a sshd_config
+Configures openssh
 
 Requirements
 ============
@@ -18,7 +18,7 @@ Usage
 
 ```json
 "run_list": [
-    "recipe[sshd-config]"
+    "recipe[openssh-config]"
 ]
 ```
 

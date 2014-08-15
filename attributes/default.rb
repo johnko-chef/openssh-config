@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: sshd-config
+# Cookbook Name:: openssh-config
 # Recipe:: default
 #
 # Author:: John Ko <git@johnko.ca>
